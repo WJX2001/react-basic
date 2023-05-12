@@ -11,7 +11,7 @@ class Test extends React.Component{
 
   render() {
     return(
-      <button onClick={() => this.handler()}>click</button>
+      <button onClick={this.handler}>click</button>
     )
   }
 }
