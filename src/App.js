@@ -1,65 +1,30 @@
-import React from "react";
+import { useState } from "react"
 
-class Test extends React.Component{
-    // 如果数据是组件的状态需要去影响视图 定义到state中 
-    // 而如果我们需要的数据状态 不和视图绑定 定义成一个普通的实例属性就可以
-    // state中尽量保持精简
-    timer = null
-    componentDidMount() {
-        this.timer = setInterval(() => {
-            console.log('定时器开启')    
-        },1000) 
-    }
 
-    componentWillUnmount() {
-        console.log('componentWillUnmount')
-        // 清理定时器
-        clearInterval(this.timer)
 
-    }
-    render() {
-        return <div>test</div>
-    }
+function Counter(props) {
+    const [count,setCount] = useState(() => {
+        // 这里目的为了体现初始值经过一定的计算
+        // 这个计算比较广义的概念
+        // 只要无法直接确定 需要通过一定的操作才能获取 就可以理解为计算
+        // 循环遍历一万条数据才能确定这里的初始值是什么
+        return props.count
+    })
+
+    return (
+        <button onClick={() => setCount(count+1) }>{count} </button>
+    )
 }
 
-class App extends React.Component {
+function App() {
 
-    constructor() {
-        super()
-        console.log('constructor')
-    }
+    return (
+        <div>
+            <Counter count={10} />
+            <Counter count={20} />
 
-    state = {
-        count:0,
-        flag:true
-    }
-
-    componentDidMount () {
-        console.log('componentDidMount')
-    }
-
-    componentDidUpdate() {
-        console.log('componentDidUpdate')
-    }
-
-    clickHandler = () => {
-        this.setState({
-            count: this.state.count+1,
-            flag: !this.state.flag
-        })
-    }
-
-    render() {
-        console.log('render')
-        return (
-            <div>
-                this is div 
-                <button onClick={this.clickHandler}>{this.state.count}</button>
-                {/* 通过一个数据状态的切换，让Test组件进行销毁重建 就会发生组件卸载 */}
-                {this.state.flag ? <Test/> : null} 
-            </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default App
