@@ -1,30 +1,45 @@
-import { useState } from "react"
+import React, { createContext, useContext, useState } from 'react'
+
+import Context from './context'
 
 
+function ComA() {
+  const count = useContext(Context)
+  return (
+    <div>
+      this is ComA
+      <br />
+      app传过来的数据为: {count}
+      <ComC />
+    </div>
+  )
+}
 
-function Counter(props) {
-    const [count,setCount] = useState(() => {
-        // 这里目的为了体现初始值经过一定的计算
-        // 这个计算比较广义的概念
-        // 只要无法直接确定 需要通过一定的操作才能获取 就可以理解为计算
-        // 循环遍历一万条数据才能确定这里的初始值是什么
-        return props.count
-    })
-
-    return (
-        <button onClick={() => setCount(count+1) }>{count} </button>
-    )
+function ComC() {
+    const count = useContext(Context)
+  return (
+    <div>
+        app传过来的数据为: {count}
+    </div>
+  )
 }
 
 function App() {
-
-    return (
-        <div>
-            <Counter count={10} />
-            <Counter count={20} />
-
-        </div>
-    )
+  const [count, setCount] = useState(20)
+  return (
+    <Context.Provider value={count}>
+      <div>
+        <ComA />
+        <button
+          onClick={() => {
+            setCount(count + 1)
+          }}
+        >
+          +
+        </button>
+      </div>
+    </Context.Provider>
+  )
 }
 
 export default App
