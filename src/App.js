@@ -1,10 +1,11 @@
+import React from 'react'
 
-import Demo1 from "./10-react状态管理/reducer和context结合/基础版本/Demo1"
+import Test from './12-Websocket/index'
 
-const App = () => {
+export default function App() {
   return (
-    <Demo1 />
+    <div>
+      <Test/>
+    </div>
   )
 }
-
-export default App
