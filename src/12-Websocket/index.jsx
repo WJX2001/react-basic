@@ -28,9 +28,11 @@ export default function Test() {
   const handleSend = () => {
     if (wsHandle) {
       // 只在 WebSocket 成功连接后执行发送消息
-      const message = { '发送方': initName, '发送内容': inputValue };
-      wsHandle.send(JSON.stringify(message));
-      setData((prevData) => [...prevData, '发送方: ' + initName + ', 发送内容: ' + inputValue]);
+      // const message = { '发送方': initName, '发送内容': inputValue };
+      const message1 = initName+': '+inputValue
+      wsHandle.send(message1);
+      
+      setData((prevData) => [...prevData,   initName +': ' + inputValue]);
       setInputValue(''); // 清空输入框
     }
   };
@@ -42,14 +44,20 @@ export default function Test() {
     }
     if (wsHandle) {
       // 将 initName 转换为 JSON 字符串并发送
-      wsHandle.send(JSON.stringify({ name: initName }));
+      const welcomeMessage = '欢迎' + initName +'来到聊天室'
+      wsHandle.send(welcomeMessage);
     }
+    setData((prevData) => [...prevData, '欢迎' + initName + '来到聊天室']);
     setIsChatting(true); // 设置为正在聊天状态
   };
 
   const handleExitChat = () => {
     setIsChatting(false); // 设置为非聊天状态
     setData(['Item1', 'Item2', 'Item3']); // 重置聊天数据
+    if (wsHandle) {
+      const exitMessage = initName + '退出了聊天室';
+      wsHandle.send(exitMessage);
+    }
     setInitName('')
   };
 
