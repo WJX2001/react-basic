@@ -8,10 +8,11 @@ import Demo from './16-reactHooks/2.UseEffect';
 import ClassHOC from './15-高阶组件/2.混入props';
 import RenderHOC from './15-高阶组件/3.动态渲染';
 import TryRender from './15-高阶组件/4.懒加载';
+import Demo5 from './15-高阶组件/5.反向继承：修改渲染树';
 export default function App() {
   return (
     <div>
-      <TryRender />
+      <Demo5 />
     </div>
   );
 }
